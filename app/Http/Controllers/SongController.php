@@ -21,9 +21,9 @@ class SongController extends Controller
     {
         if (Auth::user()->is_admin){
             $songs = \App\Song::all();
-            return view('song.index', compact('songs'));
+            return view('canciones.index', compact('songs'));
         }
-        return redirect('homes');    
+        return redirect('inicio');    
     }
 
     /**
@@ -36,9 +36,9 @@ class SongController extends Controller
         if (Auth::user()->is_admin){
             //$artists = \App\Artist::all();
             $artists = \App\Artist::lists('name', 'id');
-            return view('song.create', compact('artists'));
+            return view('canciones.create', compact('artists'));
         }
-        return redirect('homes');    
+        return redirect('inicio');    
 
     }
 
@@ -79,14 +79,14 @@ class SongController extends Controller
                     
                     
                 } else {
-                   return Redirect::to('/'); // error
+                   return Redirect::to('inicio'); 
                 } 
             } else {
                 
-                    return Redirect::to('/'); // error
+                    return Redirect::to('inicio');
             }
         } else {
-            return Redirect::to('/'); // error
+            return Redirect::to('inicio'); 
         }
     }
 
@@ -110,16 +110,7 @@ class SongController extends Controller
         return redirect('songs');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
@@ -132,7 +123,7 @@ class SongController extends Controller
         $artists = \App\Artist::lists('name', 'id');        
 
         $song = \App\Song::find($id);
-        return view('song.edit', compact('song','artists'));
+        return view('canciones.edit', compact('song','artists'));
     }
 
     /**

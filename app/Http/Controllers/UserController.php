@@ -8,9 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
 use Hash;
-use App\User;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
+use App\User;
 
 class UserController extends Controller
 {
@@ -41,16 +41,17 @@ class UserController extends Controller
      * @return Response
      */
     public function store()
-    {
-        $userName = Input::get('user_name');
+    {        
         $email = Input::get('email');        
         $password = Input::get('password');
         $password = Hash::make($password);
+        
+
         $user = new User();
         $user->email = $email;
         $user->password = $password;
         $user->save();
-        //Auth::attempt(array('email' => $email, 'password' => $password));
+        
         return Redirect::to('/');
     }
 
@@ -60,16 +61,20 @@ class UserController extends Controller
             'email'     => Input::get('email'),
             'password'  => Input::get('password')
         );
-        if (Auth::attempt($userdata)) {
+
+        
+
+        if (Auth::attempt($userdata)) {            
             
             if (Auth::user()->is_admin){
-                return Redirect::to('homes');
+                return Redirect::to('inicio');
             }
-            return Redirect::to('rocks');
+            /*Si es guest lo manda a la lista de canciones*/
+            return Redirect::to('playlists');
 
         } else {
             // validation not successful, send back to form
-            return Redirect::to('/')->withErrors(array('invalid_credentials' => 'Acceso Denegado'));
+            return Redirect::to('/')->withErrors(array('message' => 'Acceso Denegado'));
         }
     
    }

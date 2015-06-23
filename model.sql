@@ -2,7 +2,7 @@ CREATE TABLE song(
 	id serial not null ,
 	name VARCHAR(60) ,
 	artist_id int not null ,
-	url_source VARCHAR(300) ,
+	url_source VARCHAR(1000) ,
 	PRIMARY KEY (id) 
 );
 

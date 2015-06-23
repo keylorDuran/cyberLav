@@ -14,7 +14,7 @@ use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 
-class RocolaController extends Controller
+class PlayListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class RocolaController extends Controller
     public function index()
     {
         $songs = \App\Song::paginate(15);
-        return view('rock.index', compact('songs'));
+        return view('lista.index', compact('songs'));
     }
 
     public function push($data){
@@ -49,12 +49,11 @@ class RocolaController extends Controller
     }
 
 
-    public function send($id)
+    public function select($id)
     {
-        $song = \App\Song::find($id);
-        //\Queue::push($song->url_source);
+        $song = \App\Song::find($id);        
         $this->push($song->url_source);
-        return redirect('rocks');
+        return redirect('playlists');
     }
 
    

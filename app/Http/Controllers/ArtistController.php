@@ -21,9 +21,9 @@ class ArtistController extends Controller
     {
         if (Auth::user()->is_admin){
             $artists = \App\Artist::all();
-            return view('artist.index', compact('artists'));
+            return view('cantantes.index', compact('artists'));
          }
-        return redirect('homes');      
+        return redirect('inicio');      
     }
 
     /**
@@ -34,9 +34,9 @@ class ArtistController extends Controller
     public function create()
     {
         if (Auth::user()->is_admin){
-            return view('artist.create');
+            return view('cantantes.create');
          }
-        return redirect('homes');
+        return redirect('inicio');
     }
 
     /**
@@ -70,7 +70,7 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $artist = \App\Artist::find($id);
-        return view('artist.edit', compact('artist'));
+        return view('cantantes.edit', compact('artist'));
     }
 
     /**
